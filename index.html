@@ -9,7 +9,15 @@
       <h2>welcome to vibely!</h2>
       <p>connect with people,share your moments and discover new vibes.</p>
       <h3>create a post</h3>
-      <textarea placeholder="what's on your mind?"></textarea><br>
-      <button>post</button>
+      <button onclick="createpost[] ">post</button><div id="posts"></div>
+      <script>
+        function createpost[]{
+          const text=document.getElementlyById["posttext"].value;
+          if [text.trim[]===""]{
+            alert["please write something first!"]; post.textcontent=text;
+            document.getElementlyById["posts"].appendchild[post];
+            document.getElementlyById["posttext"].value="";}
+          </script>
+
     </body>
   </html>
