@@ -11,16 +11,16 @@
       <h3>create a post</h3>
       <textarea id="posttext" placeholder="what's on your mind?"></textarea>
       <br> 
-      <button onclick="createpost() ">post</button> 
+      <button onclick="createPost() ">post</button> 
       <div id="posts"></div>
       <script>
         function createpost(){
-          const text=document.getElementById("posttext").value;
+          const text= document.getElementById("posttext").value;
           if (text.trim()===""){
             alert("please write something first!");
             return;
           }
-                  const post=document.createElement("p");
+                  const post= document.createElement("p");
           post.textcontent=text;
             document.getElementById("posts").appendchild(post);
             document.getElementById("posttext").value="";
