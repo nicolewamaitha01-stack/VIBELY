@@ -375,6 +375,183 @@ postButton.addEventListener("click", () => {
 renderPosts();
 </script>
 
+<script type="module">
+  import { createClient } from
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const VIBELY_URL = 
+<script type="module">
+  import { createClient } from
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const VIBELY_URL = 'PASTE_YOUR_API_URL_HERE';
+  const VIBELY_KEY = 
+<script type="module">
+  import { createClient } from
+    'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const VIBELY_URL = 'PASTE_YOUR_API_URL_HERE';
+  const VIBELY_KEY = 'PASTE_YOUR_PUBLISHABLE_KEY_HERE';
+
+  const vibelyDB = createClient(VIBELY_URL, VIBELY_KEY);
+
+  const signupForm = document.getElementById('vibely-signup');
+  const loginForm = document.getElementById('vibely-login');
+  const message = document.getElementById('vibely-auth-message');
+
+  signupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('vibely-name').value.trim();
+    const email = document.getElementById('vibely-signup-email').value.trim();
+    const password = document.getElementById('vibely-signup-password').value;
+
+    message.textContent = 'Creating your account...';
+
+    const { data, error } = await vibelyDB.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name }
+      }
+    });
+
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    message.textContent = data.session
+      ? 'Welcome to Vibely! Your account is ready. 💙'
+      : 'Account created! Check your email to confirm your account.';
+  });
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('vibely-login-email').value.trim();
+    const password = document.getElementById('vibely-login-password').value;
+
+    message.textContent = 'Logging in...';
+
+    const { error } = await vibelyDB.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    message.textContent = error
+      ? error.message
+      : 'You are logged in to Vibely! 💙';
+  });
+</script>
+';
+
+  const vibelyDB = createClient(VIBELY_URL, VIBELY_KEY);
+
+  const signupForm = document.getElementById('vibely-signup');
+  const loginForm = document.getElementById('vibely-login');
+  const message = document.getElementById('vibely-auth-message');
+
+  signupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('vibely-name').value.trim();
+    const email = document.getElementById('vibely-signup-email').value.trim();
+    const password = document.getElementById('vibely-signup-password').value;
+
+    message.textContent = 'Creating your account...';
+
+    const { data, error } = await vibelyDB.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name }
+      }
+    });
+
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    message.textContent = data.session
+      ? 'Welcome to Vibely! Your account is ready. 💙'
+      : 'Account created! Check your email to confirm your account.';
+  });
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('vibely-login-email').value.trim();
+    const password = document.getElementById('vibely-login-password').value;
+
+    message.textContent = 'Logging in...';
+
+    const { error } = await vibelyDB.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    message.textContent = error
+      ? error.message
+      : 'You are logged in to Vibely! 💙';
+  });
+</script>
+;
+  const VIBELY_KEY = 'PASTE_YOUR_PUBLISHABLE_KEY_HERE';
+
+  const vibelyDB = createClient(VIBELY_URL, VIBELY_KEY);
+
+  const signupForm = document.getElementById('vibely-signup');
+  const loginForm = document.getElementById('vibely-login');
+  const message = document.getElementById('vibely-auth-message');
+
+  signupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('vibely-name').value.trim();
+    const email = document.getElementById('vibely-signup-email').value.trim();
+    const password = document.getElementById('vibely-signup-password').value;
+
+    message.textContent = 'Creating your account...';
+
+    const { data, error } = await vibelyDB.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: name }
+      }
+    });
+
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    message.textContent = data.session
+      ? 'Welcome to Vibely! Your account is ready. 💙'
+      : 'Account created! Check your email to confirm your account.';
+  });
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('vibely-login-email').value.trim();
+    const password = document.getElementById('vibely-login-password').value;
+
+    message.textContent = 'Logging in...';
+
+    const { error } = await vibelyDB.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    message.textContent = error
+      ? error.message
+      : 'You are logged in to Vibely! 💙';
+  });
+</script>
+
 </body>
 </html>
 
