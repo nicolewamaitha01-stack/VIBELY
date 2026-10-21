@@ -647,6 +647,36 @@ function showVibelyForm(mode) {
 <button type="button" onclick="showVibelyForm('signup')">Sign Up</button>
 <button type="button" onclick="showVibelyForm('login')">Log In</button>
 
+<form id="vibely-signup">
+  <p>Your name</p>
+  <input id="vibely-name" type="text" placeholder="Your name" required>
+  <p>Email</p>
+  <input id="vibely-signup-email" type="email" placeholder="Your email" required>
+  <p>Password</p>
+  <input id="vibely-signup-password" type="password" minlength="6" placeholder="Create password" required>
+  <button type="submit">Create Account</button>
+</form>
+
+<form id="vibely-login" hidden>
+  <p>Email</p>
+  <input id="vibely-login-email" type="email" placeholder="Your email" required>
+  <p>Password</p>
+  <input id="vibely-login-password" type="password" placeholder="Your password" required>
+  <button type="submit">Log In</button>
+</form>
+<p id="vibely-auth-message"></p>
+
+</section>
+
+<script>
+function showVibelyForm(mode) {
+  document.getElementById('vibely-signup').hidden = mode !== 'signup';
+  document.getElementById('vibely-login').hidden = mode !== 'login';
+  document.getElementById('vibely-auth-message').textContent = '';
+}
+</script>
+<!-- END VIBELY SIGN UP AND LOGIN -->
+
 
 </body>
 </html>
