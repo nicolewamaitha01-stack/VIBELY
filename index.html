@@ -552,6 +552,96 @@ renderPosts();
   });
 </script>
 
+<!-- VIBELY SIGN UP AND LOGIN -->
+<section id="vibely-auth" style="max-width:420px;margin:30px auto;padding:24px;border-radius:18px;background:#171717;color:white;font-family:Arial,sans-serif;box-sizing:border-box">
+  <h2 style="text-align:center;color:#ff6bcb">Welcome to Vibely 💙</h2>
+  <p style="text-align:center">Connect, Share &amp; Vibe</p>
+
+  <div style="display:flex;gap:10px;margin:20px 0">
+    <button type="button" onclick="showVibelyForm('signup')">Sign Up</button>
+    <button type="button" onclick="showVibelyForm('login')">Log In</button>
+  </div>
+
+  <form id="vibely-signup">
+    <label for="vibely-name">Your name</label>
+    <input id="vibely-name" type="text" required placeholder="Enter your name" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <label for="vibely-signup-email">Email</label>
+    <input id="vibely-signup-email" type="email" required placeholder="Enter your email" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <label for="vibely-signup-password">Password (at least 6 characters)</label>
+    <input id="vibely-signup-password" type="password" minlength="6" required placeholder="Create a password" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <button type="submit">Create Account</button>
+  </form>
+
+  <form id="vibely-login" hidden>
+    <label for="vibely-login-email">Email</label>
+    <input id="vibely-login-email" type="email" required placeholder="Enter your email" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <label for="vibely-login-password">Password</label>
+    <input id="vibely-login-password" type="password" required placeholder="Enter your password" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p id="vibely-auth-message" role="status" aria-live="polite"></p>
+</section>
+
+<script>
+function showVibelyForm(mode) {
+  document.getElementById('vibely-signup').hidden = mode !== 'signup';
+  document.getElementById('vibely-login').hidden = mode !== 'login';
+  document.getElementById('vibely-auth-message').textContent = '';
+}
+</script>
+<!-- END VIBELY SIGN UP AND LOGIN -->
+
+<!-- VIBELY SIGN UP AND LOGIN -->
+<section id="vibely-auth" style="max-width:420px;margin:30px auto;padding:24px;border-radius:18px;background:#171717;color:white;font-family:Arial,sans-serif;box-sizing:border-box">
+  <h2 style="text-align:center;color:#ff6bcb">Welcome to Vibely 💙</h2>
+  <p style="text-align:center">Connect, Share &amp; Vibe</p>
+
+  <div style="display:flex;gap:10px;margin:20px 0">
+    <button type="button" onclick="showVibelyForm('signup')">Sign Up</button>
+    <button type="button" onclick="showVibelyForm('login')">Log In</button>
+  </div>
+
+  <form id="vibely-signup">
+    <label for="vibely-name">Your name</label>
+    <input id="vibely-name" type="text" required placeholder="Enter your name" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <label for="vibely-signup-email">Email</label>
+    <input id="vibely-signup-email" type="email" required placeholder="Enter your email" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <label for="vibely-signup-password">Password (at least 6 characters)</label>
+    <input id="vibely-signup-password" type="password" minlength="6" required placeholder="Create a password" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <button type="submit">Create Account</button>
+  </form>
+
+  <form id="vibely-login" hidden>
+    <label for="vibely-login-email">Email</label>
+    <input id="vibely-login-email" type="email" required placeholder="Enter your email" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <label for="vibely-login-password">Password</label>
+    <input id="vibely-login-password" type="password" required placeholder="Enter your password" style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px">
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p id="vibely-auth-message" role="status" aria-live="polite"></p>
+</section>
+
+<script>
+function showVibelyForm(mode) {
+  document.getElementById('vibely-signup').hidden = mode !== 'signup';
+  document.getElementById('vibely-login').hidden = mode !== 'login';
+  document.getElementById('vibely-auth-message').textContent = '';
+}
+</script>
+<!-- END VIBELY SIGN UP AND LOGIN -->
+
 </body>
 </html>
 
