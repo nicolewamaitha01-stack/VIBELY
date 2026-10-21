@@ -1,31 +1,380 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title><vibely</title>
-  </head>
-    <body>
-      <h1>vibely💜</h1>
-      <p>connect.share.vibe.</p>
-      <h2>welcome to vibely!</h2>
-      <p>connect with people,share your moments and discover new vibes.</p>
-      <h3>create a post</h3>
-      <textarea id="posttext" placeholder="what's on your mind?"></textarea>
-      <br> 
-      <button onclick="createPost() ">post</button> 
-      <div id="posts"></div>
-      <script>
-        function createpost(){
-          const text= document.getElementById("postText").value;
-          if (text.trim()===""){
-            alert("please write something first!");
-            return;
-          }
-                  const post= document.createElement("p");
-          post.textcontent=text;
-            document.getElementById("posts").appendchild(post);
-            document.getElementById("posttext").value="";
-        }
-          </script>
 
-    </body>
-  </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibely - Connect & Share</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f3fa;
+  color: #242238;
+}
+
+header {
+  background: #7047eb;
+  color: white;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 27px;
+}
+
+header span {
+  font-size: 13px;
+}
+
+main {
+  max-width: 600px;
+  margin: 25px auto;
+  padding: 0 15px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: 0 3px 15px #0000000c;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0 12px;
+  border: 1px solid #ded9ed;
+  border-radius: 10px;
+  font: inherit;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.primary {
+  background: #7047eb;
+  color: white;
+  width: 100%;
+}
+
+.primary:hover {
+  background: #5933cc;
+}
+
+.post {
+  overflow-wrap: anywhere;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.avatar {
+  background: #eee7ff;
+  color: #7047eb;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.post-header small {
+  display: block;
+  color: #777;
+  margin-top: 4px;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.actions button {
+  background: #f2effc;
+  color: #5433b0;
+}
+
+.actions button:hover {
+  background: #e5dcff;
+}
+
+.delete {
+  margin-left: auto;
+  color: #b42338 !important;
+  background: #fff0f1 !important;
+}
+
+#message {
+  color: #5933cc;
+  font-size: 14px;
+}
+
+.empty {
+  color: #777;
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer {
+  text-align: center;
+  color: #777;
+  padding: 25px;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>💜 Vibely</h1>
+  <span>Connect. Share. Vibe.</span>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Welcome to Vibely ✨</h2>
+    <p>Share your thoughts and spread good vibes.</p>
+
+    <label for="username">Your name</label>
+    <input id="username" placeholder="Enter your name">
+
+    <label for="postText">What's on your mind?</label>
+    <textarea id="postText"
+      placeholder="Share something with the world..."></textarea>
+
+    <label for="imageUrl">Image URL (optional)</label>
+    <input id="imageUrl"
+      placeholder="Paste a public image link">
+
+    <button class="primary" id="postButton">
+      + Create Post
+    </button>
+    <p id="message" role="status"></p>
+  </section>
+
+  <section>
+    <h2>🌍 Your Feed</h2>
+    <div id="feed"></div>
+  </section>
+</main>
+
+<footer>
+  Made with 💜 on Vibely
+</footer>
+
+<script>
+const nameInput = document.getElementById("username");
+const textInput = document.getElementById("postText");
+const imageInput = document.getElementById("imageUrl");
+const postButton = document.getElementById("postButton");
+const feed = document.getElementById("feed");
+const message = document.getElementById("message");
+
+let posts = [];
+
+try {
+  posts = JSON.parse(
+    localStorage.getItem("vibelyPosts") || "[]"
+  );
+  if (!Array.isArray(posts)) posts = [];
+} catch (error) {
+  posts = [];
+}
+
+function savePosts() {
+  try {
+    localStorage.setItem("vibelyPosts", JSON.stringify(posts));
+    return true;
+  } catch (error) {
+    message.textContent =
+      "Storage is full or unavailable. Your post may not be saved.";
+    return false;
+  }
+}
+
+function safeText(element, text) {
+  element.textContent = text;
+}
+
+function renderPosts() {
+  feed.replaceChildren();
+
+  if (posts.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent =
+      "No posts yet. Be the first to share a vibe! 💜";
+    feed.appendChild(empty);
+    return;
+  }
+
+  [...posts].reverse().forEach(post => {
+    const card = document.createElement("article");
+    card.className = "card post";
+
+    const header = document.createElement("div");
+    header.className = "post-header";
+
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    safeText(avatar, (post.name || "U").charAt(0).toUpperCase());
+
+    const details = document.createElement("div");
+    const username = document.createElement("strong");
+    safeText(username, post.name || "Vibely User");
+
+    const date = document.createElement("small");
+    safeText(date, post.date || "");
+
+    details.append(username, date);
+    header.append(avatar, details);
+
+    const content = document.createElement("p");
+    safeText(content, post.text);
+
+    card.append(header, content);
+
+    if (post.image) {
+      const img = document.createElement("img");
+      img.className = "post-image";
+      img.alt = "Post image";
+      img.src = post.image;
+      img.onerror = () => img.remove();
+      card.appendChild(img);
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const like = document.createElement("button");
+    safeText(like, "💜 Like (" + (post.likes || 0) + ")");
+
+    like.addEventListener("click", () => {
+      post.likes = (post.likes || 0) + 1;
+      savePosts();
+      renderPosts();
+    });
+
+    const remove = document.createElement("button");
+    remove.className = "delete";
+    remove.textContent = "Delete";
+
+    remove.addEventListener("click", () => {
+      posts = posts.filter(item => item.id !== post.id);
+      savePosts();
+      renderPosts();
+    });
+
+    actions.append(like, remove);
+    card.appendChild(actions);
+    feed.appendChild(card);
+  });
+}
+
+postButton.addEventListener("click", () => {
+  const name = nameInput.value.trim();
+  const text = textInput.value.trim();
+  const image = imageInput.value.trim();
+
+  if (!name) {
+    message.textContent = "Please enter your name first.";
+    nameInput.focus();
+    return;
+  }
+
+  if (!text) {
+    message.textContent = "Please write something before posting.";
+    textInput.focus();
+    return;
+  }
+
+  if (image) {
+    try {
+      const url = new URL(image);
+      if (url.protocol !== "https:" &&
+          url.protocol !== "http:") {
+        throw new Error("Invalid image URL");
+      }
+    } catch (error) {
+      message.textContent =
+        "Please enter a valid image URL or leave it blank.";
+      imageInput.focus();
+      return;
+    }
+  }
+
+  const post = {
+    id: Date.now().toString() + Math.random().toString(16).slice(2),
+    name: name,
+    text: text,
+    image: image,
+    likes: 0,
+    date: new Date().toLocaleString()
+  };
+
+  posts.push(post);
+
+  if (!savePosts()) {
+    posts.pop();
+    return;
+  }
+
+  textInput.value = "";
+  imageInput.value = "";
+  message.textContent = "Your post is live on this browser! 💜";
+  renderPosts();
+});
+
+renderPosts();
+</script>
+
+</body>
+</html>
+
