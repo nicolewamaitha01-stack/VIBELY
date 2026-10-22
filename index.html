@@ -689,6 +689,57 @@ function showVibelyForm(mode) {
     SUPABASE_PUBLISHABLE_KEY
    ); 
   console.log("Vibely Supabase connected!");
+  
+  // VIBELY SIGN UP
+  document.getElementById("vibely-signup").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("vibely-name").value.trim();
+    const email = document.getElementById("vibely-signup-email").value.trim();
+    const password = document.getElementById("vibely-signup-password").value;
+    const message = document.getElementById("vibely-auth-message");
+
+    message.textContent = "Creating your account...";
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: { full_name: name }
+      }
+    });
+
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    message.textContent = "Account created! Check your email if confirmation is required.";
+  });
+
+  // VIBELY LOG IN
+  document.getElementById("vibely-login").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("vibely-login-email").value.trim();
+    const password = document.getElementById("vibely-login-password").value;
+    const message = document.getElementById("vibely-auth-message");
+
+    message.textContent = "Logging in...";
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    message.textContent = "Welcome back to Vibely!";
+  });
+
 </script>
 </body>
 </html>
